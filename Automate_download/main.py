@@ -266,7 +266,8 @@ def upload_to_azure_blob(file_path, blob_name=None):
         print("⚠️ Azure SDK not installed. Skipping blob upload.")
         return False
     
-    connection_string = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
+    
+    connection_string = os.environ.get("DefaultEndpointsProtocol=https;AccountName=sensordata6459;AccountKey=iMruMKJ/+L2uEcDgrtbpLZBHx0g/mFCfRf2CTEetNTJD5bKIn9ZQ1dAZOaLZezbHnLe9aRBe7hof+AStR91/pg==;EndpointSuffix=core.windows.net")
     container_name = os.environ.get("BLOB_CONTAINER_NAME", "sensor-data-site1")
     
     if not connection_string:
