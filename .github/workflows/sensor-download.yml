@@ -1,0 +1,89 @@
+name: Sensor Data Download
+
+on:
+  # Scheduled trigger: 7:05 AM Malaysia Time (UTC+8) = 23:05 UTC previous day
+  schedule:
+    - cron: '5 23 * * *'  # 23:05 UTC = 7:05 AM MYT
+  
+  # Manual trigger from GitHub UI
+  workflow_dispatch:
+
+jobs:
+  download-sensor-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 'stable'
+      
+      - name: Install Python dependencies
+        run: |
+          pip install -r Automate_download/requirements.txt
+      
+      - name: Download existing Combined data from Azure
+        env:
+          AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        run: |
+          # Create Combined directory
+          mkdir -p Combined
+          
+          # Try to download existing combined data (ignore if doesn't exist)
+          python -c "
+          import os
+          from azure.storage.blob import BlobServiceClient
+          
+          conn_str = os.environ.get('AZURE_STORAGE_CONNECTION_STRING')
+          if not conn_str:
+              print('No connection string, skipping download')
+              exit(0)
+          
+          try:
+              blob_service = BlobServiceClient.from_connection_string(conn_str)
+              blob_client = blob_service.get_blob_client('sensor-data-site1', 'combined/merged_sensor_data.csv')
+              
+              # Download to memory first, then write to file
+              # This avoids creating an empty file if download fails
+              data = blob_client.download_blob().readall()
+              if data and len(data) > 0:
+                  with open('Combined/merged_sensor_data.csv', 'wb') as f:
+                      f.write(data)
+                  print('Downloaded existing Combined data from Azure')
+              else:
+                  print('Blob exists but is empty, skipping')
+          except Exception as e:
+              print(f'No existing data found (first run?): {e}')
+              # Ensure no empty file is left behind
+              import pathlib
+              p = pathlib.Path('Combined/merged_sensor_data.csv')
+              if p.exists() and p.stat().st_size == 0:
+                  p.unlink()
+                  print('Removed empty placeholder file')
+          "
+      
+      - name: Run sensor data download
+        env:
+          AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+          BLOB_CONTAINER_NAME: sensor-data-site1
+        run: |
+          cd Automate_download
+          python main.py --headless --upload-to-blob
+      
+      - name: Upload artifacts (backup)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sensor-data-${{ github.run_number }}
+          path: |
+            output/*.csv
+            Combined/*.csv
+          retention-days: 30

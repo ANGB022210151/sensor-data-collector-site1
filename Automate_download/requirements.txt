@@ -1,0 +1,9 @@
+# Selenium / Web automation
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+
+# Azure SDK (for blob storage upload)
+azure-storage-blob>=12.19.0
+
+# Data processing
+pandas>=2.0.0

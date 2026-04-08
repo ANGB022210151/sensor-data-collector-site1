@@ -1,0 +1,21 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    
+    "AZURE_SUBSCRIPTION_ID": "<your-subscription-id>",
+    "AZURE_RESOURCE_GROUP": "<your-resource-group>",
+    "AZURE_LOCATION": "southeastasia",
+    
+    "CONTAINER_GROUP_NAME": "sensor-download-aci",
+    "CONTAINER_IMAGE": "<your-acr>.azurecr.io/sensor-downloader:latest",
+    
+    "ACR_SERVER": "<your-acr>.azurecr.io",
+    "ACR_USERNAME": "<acr-username>",
+    "ACR_PASSWORD": "<acr-password>",
+    
+    "AZURE_STORAGE_CONNECTION_STRING": "<your-storage-connection-string>",
+    "BLOB_CONTAINER_NAME": "sensor-data"
+  }
+}
