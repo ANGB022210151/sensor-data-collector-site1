@@ -4,16 +4,16 @@
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "python",
     
-    "AZURE_SUBSCRIPTION_ID": "<your-subscription-id>",
-    "AZURE_RESOURCE_GROUP": "<your-resource-group>",
+    "AZURE_SUBSCRIPTION_ID": "c7ad4219-3f30-4a0b-a6b3-329bb2974d95",
+    "AZURE_RESOURCE_GROUP": "sensor-data-rg",
     "AZURE_LOCATION": "southeastasia",
     
     "CONTAINER_GROUP_NAME": "sensor-download-aci",
-    "CONTAINER_IMAGE": "<your-acr>.azurecr.io/sensor-downloader:latest",
+    "CONTAINER_IMAGE": "sensoracr7566.azurecr.io/sensor-downloader:latest",
     
-    "ACR_SERVER": "<your-acr>.azurecr.io",
-    "ACR_USERNAME": "<acr-username>",
-    "ACR_PASSWORD": "<acr-password>",
+    "ACR_SERVER": "sensoracr7566.azurecr.io",
+    "ACR_USERNAME": "sensoracr7566",
+    "ACR_PASSWORD": "2nm0R0ahh4qsOrBvj2F9zKH72MblzooHaVTFprHmAP42ttRMdeYKJQQJ99CBACqBBLyEqg7NAAACAZCRAfXW",
     
     "AZURE_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=sensordata6459;AccountKey=iMruMKJ/+L2uEcDgrtbpLZBHx0g/mFCfRf2CTEetNTJD5bKIn9ZQ1dAZOaLZezbHnLe9aRBe7hof+AStR91/pg==;EndpointSuffix=core.windows.net",
     "BLOB_CONTAINER_NAME": "sensor-data-site1"
