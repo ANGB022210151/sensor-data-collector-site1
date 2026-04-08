@@ -30,6 +30,18 @@ try:
 except ImportError:
     AZURE_AVAILABLE = False
 
+# Load environment variables from local.settings.json (for local development)
+import json
+if os.path.exists("local.settings.json"):
+    try:
+        with open("local.settings.json") as f:
+            config = json.load(f)
+            for key, value in config.get("Values", {}).items():
+                if key not in os.environ:
+                    os.environ[key] = value
+    except Exception as e:
+        print(f"Warning: Could not load local.settings.json: {e}")
+
 # Configuration
 DASHBOARD_URL = "https://app.datacake.de/pd/ea4da4f6-a3aa-4353-bb62-60c650165c36"
 DOWNLOAD_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # followtime directory
