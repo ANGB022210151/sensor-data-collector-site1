@@ -15,7 +15,7 @@
     "ACR_USERNAME": "<acr-username>",
     "ACR_PASSWORD": "<acr-password>",
     
-    "AZURE_STORAGE_CONNECTION_STRING": "<your-storage-connection-string>",
+    "AZURE_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=sensordata6459;AccountKey=iMruMKJ/+L2uEcDgrtbpLZBHx0g/mFCfRf2CTEetNTJD5bKIn9ZQ1dAZOaLZezbHnLe9aRBe7hof+AStR91/pg==;EndpointSuffix=core.windows.net",
     "BLOB_CONTAINER_NAME": "sensor-data-site1"
   }
 }
