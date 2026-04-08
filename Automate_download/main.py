@@ -30,18 +30,6 @@ try:
 except ImportError:
     AZURE_AVAILABLE = False
 
-# Load environment variables from local.settings.json (for local development)
-import json
-if os.path.exists("local.settings.json"):
-    try:
-        with open("local.settings.json") as f:
-            config = json.load(f)
-            for key, value in config.get("Values", {}).items():
-                if key not in os.environ:
-                    os.environ[key] = value
-    except Exception as e:
-        print(f"Warning: Could not load local.settings.json: {e}")
-
 # Configuration
 DASHBOARD_URL = "https://app.datacake.de/pd/ea4da4f6-a3aa-4353-bb62-60c650165c36"
 DOWNLOAD_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # followtime directory
@@ -278,9 +266,8 @@ def upload_to_azure_blob(file_path, blob_name=None):
         print("⚠️ Azure SDK not installed. Skipping blob upload.")
         return False
     
-    
-    connection_string = os.environ.get("DefaultEndpointsProtocol=https;AccountName=sensordata6459;AccountKey=iMruMKJ/+L2uEcDgrtbpLZBHx0g/mFCfRf2CTEetNTJD5bKIn9ZQ1dAZOaLZezbHnLe9aRBe7hof+AStR91/pg==;EndpointSuffix=core.windows.net")
-    container_name = os.environ.get("BLOB_CONTAINER_NAME", "sensor-data-site1")
+    connection_string = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
+    container_name = os.environ.get("BLOB_CONTAINER_NAME", "sensor-data")
     
     if not connection_string:
         print("⚠️ AZURE_STORAGE_CONNECTION_STRING not set. Skipping blob upload.")
