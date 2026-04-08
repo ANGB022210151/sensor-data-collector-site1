@@ -16,6 +16,6 @@
     "ACR_PASSWORD": "<acr-password>",
     
     "AZURE_STORAGE_CONNECTION_STRING": "<your-storage-connection-string>",
-    "BLOB_CONTAINER_NAME": "sensor-data"
+    "BLOB_CONTAINER_NAME": "sensor-data-site1"
   }
 }

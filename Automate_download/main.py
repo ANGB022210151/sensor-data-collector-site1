@@ -267,7 +267,7 @@ def upload_to_azure_blob(file_path, blob_name=None):
         return False
     
     connection_string = os.environ.get("AZURE_STORAGE_CONNECTION_STRING")
-    container_name = os.environ.get("BLOB_CONTAINER_NAME", "sensor-data")
+    container_name = os.environ.get("BLOB_CONTAINER_NAME", "sensor-data-site1")
     
     if not connection_string:
         print("⚠️ AZURE_STORAGE_CONNECTION_STRING not set. Skipping blob upload.")
